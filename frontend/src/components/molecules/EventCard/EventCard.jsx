@@ -1,5 +1,5 @@
 import { Box, Typography, Chip, Stack } from '@mui/material';
-import { ChevronDown } from '@mui/icons-material';
+import { ExpandMore } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import Card from '../../atoms/Card';
 import Button from '../../atoms/Button';
@@ -89,7 +89,7 @@ export default function EventCard({
       <Accordion
         summary={summaryContent}
         defaultExpanded={defaultExpanded}
-        icon={<ChevronDown />}
+        icon={<ExpandMore />}
       >
         <Stack spacing={2}>
           {/* 종목 설명 */}

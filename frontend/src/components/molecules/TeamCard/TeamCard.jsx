@@ -1,5 +1,5 @@
 import { Box, Typography, Stack, IconButton } from '@mui/material';
-import { ChevronDown, Phone, Person } from '@mui/icons-material';
+import { ExpandMore, Phone, Person } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import Card from '../../atoms/Card';
 import Accordion from '../../atoms/Accordion';
@@ -94,7 +94,7 @@ export default function TeamCard({
       <Accordion
         summary={summaryContent}
         defaultExpanded={defaultExpanded}
-        icon={<ChevronDown />}
+        icon={<ExpandMore />}
       >
         <Stack spacing={1}>
           {/* 팀원 목록 */}
