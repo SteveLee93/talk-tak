@@ -283,7 +283,7 @@ export const Timeline = {
             </Box>
           ))}
         </Box>
-      </div>
+      </Box>
     );
   },
 };

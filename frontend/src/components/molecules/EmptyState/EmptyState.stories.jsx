@@ -111,10 +111,10 @@ export const InCard = {
   render: () => (
     <Card>
       <EmptyState
-        message: '참가자가 없습니다',
-        description: '참가 신청을 받아보세요.',
-        actionLabel: '신청 받기',
-        onAction: () => alert('신청 받기')}
+        message="참가자가 없습니다"
+        description="참가 신청을 받아보세요."
+        actionLabel="신청 받기"
+        onAction={() => alert('신청 받기')}
       />
     </Card>
   ),
@@ -126,22 +126,22 @@ export const MultipleStates = {
       <Card>
         <EmptyState
           icon={<PersonOff sx={{ fontSize: 60 }} />}
-          message: '참가자 없음'
-          minHeight: 200}
+          message="참가자 없음"
+          minHeight={200}
         />
       </Card>
       <Card>
         <EmptyState
           icon={<EventBusy sx={{ fontSize: 60 }} />}
-          message: '대회 없음'
-          minHeight: 200}
+          message="대회 없음"
+          minHeight={200}
         />
       </Card>
       <Card>
         <EmptyState
           icon={<SearchOff sx={{ fontSize: 60 }} />}
-          message: '검색 결과 없음'
-          minHeight: 200}
+          message="검색 결과 없음"
+          minHeight={200}
         />
       </Card>
     </Box>
@@ -157,10 +157,10 @@ export const ParticipantListEmpty = {
       <Card sx={{ borderRadius: '0 0 8px 8px' }}>
         <EmptyState
           icon={<PersonOff sx={{ fontSize: 80 }} />}
-          message: '아직 참가 신청한 사람이 없어요'
-          description: '참가 신청이 시작되면 여기에 표시됩니다.'
-          actionLabel: '참가 신청 링크 공유'
-          onAction: () => alert('링크 공유')}
+          message="아직 참가 신청한 사람이 없어요"
+          description="참가 신청이 시작되면 여기에 표시됩니다."
+          actionLabel="참가 신청 링크 공유"
+          onAction={() => alert('링크 공유')}
         />
       </Card>
     </Box>
@@ -174,11 +174,11 @@ export const TournamentDashboardEmpty = {
       <Card>
         <EmptyState
           icon={<EventBusy sx={{ fontSize: 100 }} />}
-          message: '등록된 대회가 없습니다'
-          description: '첫 대회를 만들고 참가자를 모집해보세요.'
-          actionLabel: '대회 만들기'
-          onAction: () => alert('대회 만들기')}
-          minHeight: 400}
+          message="등록된 대회가 없습니다"
+          description="첫 대회를 만들고 참가자를 모집해보세요."
+          actionLabel="대회 만들기"
+          onAction={() => alert('대회 만들기')}
+          minHeight={400}
         />
       </Card>
     </Box>
@@ -203,9 +203,9 @@ export const SearchResultsEmpty = {
       </Box>
       <EmptyState
         icon={<SearchOff sx={{ fontSize: 80 }} />}
-        message: '검색 결과가 없습니다'
-        description: '"존재하지 않는 검색어"에 대한 결과를 찾을 수 없어요.'
-        minHeight: 300}
+        message="검색 결과가 없습니다"
+        description='"존재하지 않는 검색어"에 대한 결과를 찾을 수 없어요.'
+        minHeight={300}
       />
     </Box>
   ),
@@ -219,8 +219,8 @@ export const GroupAssignmentEmpty = {
       </Box>
       <EmptyState
         icon={<Inbox sx={{ fontSize: 60 }} />}
-        message: '참가자를 드래그하여 추가하세요'
-        minHeight: 200}
+        message="참가자를 드래그하여 추가하세요"
+        minHeight={200}
       />
     </Card>
   ),
@@ -233,9 +233,9 @@ export const NoSchedule = {
       <Card>
         <EmptyState
           icon={<EventBusy sx={{ fontSize: 80 }} />}
-          message: '오늘 예정된 경기가 없습니다'
-          description: '내일 경기 일정을 확인해보세요.'
-          minHeight: 300}
+          message="오늘 예정된 경기가 없습니다"
+          description="내일 경기 일정을 확인해보세요."
+          minHeight={300}
         />
       </Card>
     </Box>
@@ -248,43 +248,43 @@ export const AllEmptyStates = {
       <Card>
         <EmptyState
           icon={<PersonOff sx={{ fontSize: 60 }} />}
-          message: '참가자 없음'
-          minHeight: 250}
+          message="참가자 없음"
+          minHeight={250}
         />
       </Card>
       <Card>
         <EmptyState
           icon={<EventBusy sx={{ fontSize: 60 }} />}
-          message: '대회 없음'
-          minHeight: 250}
+          message="대회 없음"
+          minHeight={250}
         />
       </Card>
       <Card>
         <EmptyState
           icon={<SearchOff sx={{ fontSize: 60 }} />}
-          message: '검색 결과 없음'
-          minHeight: 250}
+          message="검색 결과 없음"
+          minHeight={250}
         />
       </Card>
       <Card>
         <EmptyState
           icon={<SportsScore sx={{ fontSize: 60 }} />}
-          message: '경기 없음'
-          minHeight: 250}
+          message="경기 없음"
+          minHeight={250}
         />
       </Card>
       <Card>
         <EmptyState
           icon={<Group sx={{ fontSize: 60 }} />}
-          message: '팀 없음'
-          minHeight: 250}
+          message="팀 없음"
+          minHeight={250}
         />
       </Card>
       <Card>
         <EmptyState
           icon={<Inbox sx={{ fontSize: 60 }} />}
-          message: '데이터 없음'
-          minHeight: 250}
+          message="데이터 없음"
+          minHeight={250}
         />
       </Card>
     </Box>
