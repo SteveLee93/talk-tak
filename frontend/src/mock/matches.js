@@ -1,0 +1,51 @@
+// Mock 데이터: 경기 정보
+export const mockMatches = [
+  {
+    id: 1,
+    player1: {
+      id: 1,
+      name: '홍길동',
+      affiliation: '서울대학교',
+      avatar: null,
+    },
+    player2: {
+      id: 2,
+      name: '김철수',
+      affiliation: '연세대학교',
+      avatar: null,
+    },
+    score1: 3,
+    score2: 1,
+    status: 'completed',
+    tableNumber: 3,
+    winner: 1,
+    sets: [
+      { setNumber: 1, player1Score: 11, player2Score: 9 },
+      { setNumber: 2, player1Score: 11, player2Score: 7 },
+      { setNumber: 3, player1Score: 9, player2Score: 11 },
+      { setNumber: 4, player1Score: 11, player2Score: 5 },
+    ],
+  },
+  {
+    id: 2,
+    player1: { id: 3, name: '이영희', affiliation: '고려대학교', avatar: null },
+    player2: { id: 4, name: '박민수', affiliation: '서울대학교', avatar: null },
+    score1: 0,
+    score2: 0,
+    status: 'in_progress',
+    tableNumber: 5,
+    winner: null,
+    sets: [],
+  },
+  {
+    id: 3,
+    player1: { id: 5, name: '최영호', affiliation: '성균관대학교', avatar: null },
+    player2: { id: 6, name: '강감찬', affiliation: '한양대학교', avatar: null },
+    score1: 0,
+    score2: 0,
+    status: 'waiting',
+    tableNumber: null,
+    winner: null,
+    sets: [],
+  },
+];

@@ -1,203 +1,125 @@
-import { Box, Typography, Stack, IconButton, Menu, MenuItem } from '@mui/material';
-import { MoreVert, CalendarToday, LocationOn } from '@mui/icons-material';
-import { useState } from 'react';
+import { Card, CardContent, CardActions, Typography, Chip, Box, IconButton } from '@mui/material';
+import { CalendarToday, LocationOn, MoreVert } from '@mui/icons-material';
 import PropTypes from 'prop-types';
-import Card from '../../atoms/Card';
-import Chip from '../../atoms/Chip';
-import Badge from '../../atoms/Badge';
 
 /**
  * TournamentCard 컴포넌트
- * 대회 정보를 표시하는 카드 컴포넌트
+ * 대회 정보를 카드 형태로 표시
  *
  * @param {object} props
  * @param {object} props.tournament - 대회 정보
- * @param {function} props.onView - 상세보기 클릭 핸들러
- * @param {function} props.onEdit - 수정 클릭 핸들러
- * @param {function} props.onDelete - 삭제 클릭 핸들러
- * @param {function} props.onManageParticipants - 참가자 관리 클릭 핸들러
- * @param {function} props.onManageSchedule - 일정 관리 클릭 핸들러
+ * @param {string} props.tournament.name - 대회 이름
+ * @param {string} props.tournament.startDate - 시작일 (YYYY-MM-DD)
+ * @param {string} props.tournament.endDate - 종료일 (YYYY-MM-DD)
+ * @param {string} props.tournament.venue - 장소
+ * @param {string} props.tournament.status - 상태 (upcoming, ongoing, completed)
+ * @param {function} props.onClick - 카드 클릭 핸들러
+ * @param {function} props.onMenuClick - 메뉴 버튼 클릭 핸들러
  */
 export default function TournamentCard({
   tournament,
-  onView,
-  onEdit,
-  onDelete,
-  onManageParticipants,
-  onManageSchedule,
+  onClick,
+  onMenuClick,
 }) {
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const {
-    id,
-    name,
-    date,
-    city,
-    location,
-    participantCount = 0,
-    status = '예정', // 예정, 진행중, 완료
-  } = tournament;
-
-  // 지역별 색상
-  const cityColors = {
-    서울: { bg: 'rgb(219, 234, 254)', text: 'rgb(29, 78, 216)', border: 'rgb(147, 197, 253)' },
-    경기: { bg: 'rgb(254, 226, 226)', text: 'rgb(185, 28, 28)', border: 'rgb(252, 165, 165)' },
-    인천: { bg: 'rgb(209, 250, 229)', text: 'rgb(5, 150, 105)', border: 'rgb(110, 231, 183)' },
-    부산: { bg: 'rgb(254, 243, 199)', text: 'rgb(180, 83, 9)', border: 'rgb(253, 224, 71)' },
+  const statusConfig = {
+    upcoming: {
+      label: '예정',
+      color: 'default',
+    },
+    ongoing: {
+      label: '진행중',
+      color: 'primary',
+    },
+    completed: {
+      label: '완료',
+      color: 'success',
+    },
   };
 
-  const cityColor = cityColors[city] || cityColors['서울'];
+  const status = statusConfig[tournament.status] || statusConfig.upcoming;
 
-  // 상태별 색상
-  const getStatusColor = (statusValue) => {
-    switch (statusValue) {
-      case '예정':
-        return 'primary';
-      case '진행중':
-        return 'success';
-      case '완료':
-        return 'default';
-      default:
-        return 'default';
+  // 날짜 포맷팅
+  const formatDate = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    const startStr = `${start.getMonth() + 1}/${start.getDate()}`;
+    const endStr = `${end.getMonth() + 1}/${end.getDate()}`;
+
+    if (startDate === endDate) {
+      return startStr;
     }
-  };
-
-  const handleMenuOpen = (event) => {
-    event.stopPropagation();
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleMenuAction = (action) => {
-    handleMenuClose();
-    if (action) action(id);
+    return `${startStr} - ${endStr}`;
   };
 
   return (
     <Card
-      raised
-      onClick={() => onView && onView(id)}
       sx={{
-        cursor: 'pointer',
-        transition: 'all 0.3s',
-        '&:hover': {
-          transform: 'translateY(-4px)',
-          boxShadow: 4,
-        },
-        position: 'relative',
+        cursor: onClick ? 'pointer' : 'default',
+        '&:hover': onClick ? {
+          boxShadow: 3,
+          transform: 'translateY(-2px)',
+          transition: 'all 0.2s',
+        } : {},
       }}
+      onClick={onClick}
     >
-      {/* 날짜 배지 */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 8,
-          left: 8,
-          zIndex: 1,
-        }}
-      >
-        <Chip
-          label={date}
-          icon={<CalendarToday fontSize="small" />}
-          size="small"
-          color="primary"
-        />
-      </Box>
-
-      {/* 더보기 메뉴 */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 8,
-          right: 8,
-          zIndex: 1,
-        }}
-      >
-        <IconButton
-          size="small"
-          onClick={handleMenuOpen}
-        >
-          <MoreVert />
-        </IconButton>
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleMenuClose}
-        >
-          <MenuItem onClick={() => handleMenuAction(onView)}>상세보기</MenuItem>
-          <MenuItem onClick={() => handleMenuAction(onEdit)}>수정</MenuItem>
-          <MenuItem onClick={() => handleMenuAction(onManageParticipants)}>참가자 관리</MenuItem>
-          <MenuItem onClick={() => handleMenuAction(onManageSchedule)}>일정 관리</MenuItem>
-          <MenuItem onClick={() => handleMenuAction(onDelete)}>삭제</MenuItem>
-        </Menu>
-      </Box>
-
-      {/* 카드 내용 */}
-      <Stack spacing={2} sx={{ mt: 4 }}>
-        {/* 대회명 */}
-        <Typography variant="h6" fontWeight="bold">
-          {name}
-        </Typography>
-
-        {/* 지역 및 장소 */}
-        <Stack direction="row" spacing={1} alignItems="center">
-          <Chip
-            label={city}
-            size="small"
-            sx={{
-              bgcolor: cityColor.bg,
-              color: cityColor.text,
-              borderColor: cityColor.border,
-              border: '1px solid',
-            }}
-          />
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-            <LocationOn fontSize="small" color="action" />
-            <Typography variant="body2" color="text.secondary">
-              {location}
+      <CardContent>
+        {/* 상단: 제목 + 상태 + 메뉴 */}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+          <Box sx={{ flex: 1 }}>
+            <Typography variant="h6" component="div" gutterBottom>
+              {tournament.name}
             </Typography>
           </Box>
-        </Stack>
+          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+            <Chip
+              label={status.label}
+              color={status.color}
+              size="small"
+            />
+            {onMenuClick && (
+              <IconButton
+                size="small"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onMenuClick(tournament);
+                }}
+              >
+                <MoreVert />
+              </IconButton>
+            )}
+          </Box>
+        </Box>
 
-        {/* 하단 정보 */}
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
-          <Chip
-            label={status}
-            color={getStatusColor(status)}
-            size="small"
-          />
+        {/* 날짜 */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+          <CalendarToday fontSize="small" color="action" />
+          <Typography variant="body2" color="text.secondary">
+            {formatDate(tournament.startDate, tournament.endDate)}
+          </Typography>
+        </Box>
 
-          <Badge
-            badgeContent={participantCount}
-            color="primary"
-            max={999}
-          >
-            <Typography variant="body2" color="text.secondary">
-              참가자
-            </Typography>
-          </Badge>
-        </Stack>
-      </Stack>
+        {/* 장소 */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <LocationOn fontSize="small" color="action" />
+          <Typography variant="body2" color="text.secondary">
+            {tournament.venue}
+          </Typography>
+        </Box>
+      </CardContent>
     </Card>
   );
 }
 
 TournamentCard.propTypes = {
   tournament: PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     name: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    city: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    participantCount: PropTypes.number,
-    status: PropTypes.oneOf(['예정', '진행중', '완료']),
+    startDate: PropTypes.string.isRequired,
+    endDate: PropTypes.string.isRequired,
+    venue: PropTypes.string.isRequired,
+    status: PropTypes.oneOf(['upcoming', 'ongoing', 'completed']).isRequired,
   }).isRequired,
-  onView: PropTypes.func,
-  onEdit: PropTypes.func,
-  onDelete: PropTypes.func,
-  onManageParticipants: PropTypes.func,
-  onManageSchedule: PropTypes.func,
+  onClick: PropTypes.func,
+  onMenuClick: PropTypes.func,
 };
